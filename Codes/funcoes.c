@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+void gravar_arquivo(Lista *lista){
+
+}
+
+void ler_arquivo(Lista *lista){
+
+}
+
 int inserir_tarefa(Lista *lista, Tarefa *tarefa){
     if(lista->qtde == 100){
         return 0;

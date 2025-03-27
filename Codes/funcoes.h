@@ -11,6 +11,10 @@ typedef struct
     int qtde;
 } Lista;
 
+void gravar_arquivo(Lista *lista);
+
+void ler_arquivo(Lista *lista);
+
 int inserir_tarefa(Lista *, Tarefa *);
 
 Tarefa *cria_tarefa();

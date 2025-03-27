@@ -19,9 +19,9 @@ int main(){
         } else if(opcao == 4){
             mostra_tarefas(lista);
         }else if(opcao == 5){
-            gravar_arquivo(lista);
-        }else if(opcao == 6){
             ler_arquivo(lista);
+        }else if(opcao == 6){
+            gravar_arquivo(lista);
         }
     }while (opcao != 7);
     return 0;

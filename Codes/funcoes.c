@@ -4,18 +4,40 @@
 #include <string.h>
 
 void gravar_arquivo(Lista *lista){
-    FILE *file = fopen("tarefas.txt", "w");
-    if (file == NULL){
+    FILE *file = fopen("tarefas.txt", "w");//abre o arquivo tarefas.txt e o nomeia como *file
+    if (file == NULL){//se o arquivo não existir não sera possivel abri-lo
         printf("Não foi possível encontrar o arquivo.\n");
     }
-    for(int i = 0; i < lista->qtde; i++){
-        fprintf(file, "%s\n", lista->vetor[i]->nome);
+    for(int i = 0; i < lista->qtde; i++){//percorre as tarefas 
+        fprintf(file, "%s\n", lista->vetor[i]->nome);//fprintf: escreve informações no arquivo escolhido "file", e procura onde esta "nome"
         fprintf(file, "%d\n", lista->vetor[i]->prioridade);
         fprintf(file, "%d\n", lista->vetor[i]->duracao);
     }
 }
 
 void ler_arquivo(Lista *lista){
+    FILE *file = fopen("tarefas.txt", "r");
+    if (file == NULL){   //verifica a existência do arquivo
+        printf("Não foi possível encontrar o arquivo.\n");
+    }
+    char linha[100];
+    while(fgets(linha, sizeof(linha), file) != NULL){   //ENQUANTO o fgets conseguir ler uma linha, execute o laço.
+        linha[strcspn(linha, "\n")] = 0;
+        Tarefa *nova = malloc(sizeof(Tarefa));//Aloca memória para uma nova tarefa 
+        strncpy(nova->nome, linha, sizeof(nova->nome) - 1);//Copia tudo o que estiver na linha para a tarefa "nome"
+        nova->nome[sizeof(nova->nome) - 1] = '\0';  //Garantir que a string esteja terminada corretamente
+        if (fgets(linha, sizeof(linha), file) != NULL) {
+            linha[strcspn(linha, "\n")] = 0;  //Remove a quebra de linha
+            nova->prioridade = atoi(linha);  //Converte a string para inteiro
+        }
+        if (fgets(linha, sizeof(linha), file) != NULL) {
+            linha[strcspn(linha, "\n")] = 0; 
+            nova->duracao = atoi(linha);  
+        }
+ 
+        inserir_tarefa(lista, nova);
+    } 
+    fclose(file);
 
 }
 

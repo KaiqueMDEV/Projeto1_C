@@ -4,7 +4,15 @@
 #include <string.h>
 
 void gravar_arquivo(Lista *lista){
-
+    FILE *file = fopen("tarefas.txt", "w");
+    if (file == NULL){
+        printf("Não foi possível encontrar o arquivo.\n");
+    }
+    for(int i = 0; i < lista->qtde; i++){
+        fprintf(file, "%s\n", lista->vetor[i]->nome);
+        fprintf(file, "%d\n", lista->vetor[i]->prioridade);
+        fprintf(file, "%d\n", lista->vetor[i]->duracao);
+    }
 }
 
 void ler_arquivo(Lista *lista){
